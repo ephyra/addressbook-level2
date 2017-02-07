@@ -5,7 +5,9 @@ import seedu.addressbook.data.person.UniquePersonList.*;
 import seedu.addressbook.data.tag.UniqueTagList;
 import seedu.addressbook.data.tag.UniqueTagList.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.tag.Tagging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,6 +24,7 @@ public class AddressBook {
 
     private final UniquePersonList allPersons;
     private final UniqueTagList allTags; // can contain tags not attached to any person
+    private ArrayList<Tagging> allTaggings;
 
     /**
      * Creates an empty address book.
@@ -41,6 +44,7 @@ public class AddressBook {
     public AddressBook(UniquePersonList persons, UniqueTagList tags) {
         this.allPersons = new UniquePersonList(persons);
         this.allTags = new UniqueTagList(tags);
+        this.allTaggings = new ArrayList<Tagging>();
         for (Person p : allPersons) {
             syncTagsWithMasterList(p);
         }
@@ -81,6 +85,29 @@ public class AddressBook {
         allPersons.add(toAdd);
     }
 
+    //TODO implement addTag and removeTag methods, ensure that they call updateTagging 
+    //isAdd = true for addTag, isAdd = false for removeTag
+    
+    /**
+     * @return allTaggings ArrayList
+     */
+    public ArrayList<Tagging> getAllTaggings() {
+        return allTaggings;
+    }
+
+    /**
+     * 
+     * @param personTagged person involved in tagging
+     * @param tag tag involved in tagging
+     * @param isAdd whether tag is being added
+     * 
+     * Creates new Tagging and updates AllTagging for a single tagging process
+     */
+    public void updateTagging(Person personTagged, Tag tag, boolean isAdd) {
+        Tagging newTagging = new Tagging(personTagged, tag, isAdd);
+        allTaggings.add(newTagging);
+    }
+    
     /**
      * Adds a tag to the list of tags present in the address book.
      *
