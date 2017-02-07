@@ -1,6 +1,7 @@
 package seedu.addressbook;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tagging;
 import seedu.addressbook.storage.StorageFile.*;
 
 import seedu.addressbook.commands.*;
@@ -39,7 +40,20 @@ public class Main {
     public void run(String[] launchArgs) {
         start(launchArgs);
         runCommandLoopUntilExitCommand();
+        printSessionTaggings();
         exit();
+    }
+    
+    /**
+     * Personal comments: maybe not the best place to add this function, perhaps should declare in TextUi.
+     * Also, if moved to there, can utilize the out PrintStream and call println through that instead
+     */
+    
+    /** print all taggings made during current session */
+    private void printSessionTaggings() {
+        for(Tagging t: addressBook.getAllTaggings()) {
+            System.out.println(t.toString());
+        }
     }
 
     /**
